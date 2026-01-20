@@ -16,8 +16,7 @@ public:
   void push_back(value_type value);
   value_type &operator[](size_t index);
   size_t getSize() const;
-  void resize();
-  void resize(size_t extra_capacity);
+  void resize(size_t delta = 10);
 };
 
 void DemoArray();

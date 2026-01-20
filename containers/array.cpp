@@ -11,7 +11,7 @@ CArray::~CArray() { delete[] m_data; }
 
 value_type &CArray::operator[](size_t index) {
   if (index > m_capacity)
-    resize(index);
+    resize(index-m_last+5);
 
   assert(index < m_capacity);
 
@@ -20,7 +20,7 @@ value_type &CArray::operator[](size_t index) {
   return m_data[index];
 }
 
-size_t CArray::getSize() const { return m_last + 1; }
+size_t CArray::getSize() const { return m_last; }
 
 void CArray::push_back(value_type value) {
   if (m_last >= m_capacity)
@@ -28,18 +28,8 @@ void CArray::push_back(value_type value) {
   m_data[m_last++] = value;
 }
 
-void CArray::resize() {
-  size_t new_capacity = m_capacity + 10;
-  value_type *new_data = new value_type[new_capacity];
-  for (auto i = 0; i < m_capacity; ++i)
-    new_data[i] = m_data[i];
-  delete[] m_data;
-  m_data = new_data;
-  m_capacity = new_capacity;
-}
-
-void CArray::resize(size_t extra_capacity) {
-  size_t new_capacity = m_capacity + extra_capacity;
+void CArray::resize(size_t delta) {
+  size_t new_capacity = m_capacity + delta;
   value_type *new_data = new value_type[new_capacity];
   for (auto i = 0; i < m_capacity; ++i)
     new_data[i] = m_data[i];
@@ -59,7 +49,7 @@ void DemoArray() {
   arr1.push_back(75);
 
   // test for [] operator with out of bounds index
-  arr1[30] = 10;
+  arr1[9] = 10;
 
   cout << "Ready to print" << endl;
   for (auto i = 0; i < arr1.getSize(); ++i)
