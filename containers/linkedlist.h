@@ -6,6 +6,7 @@
 using namespace std;
 
 // TODO: Traits para listas enlazadas
+//edit
 template <typename T, typename _Func>
 struct ListTrait{
     using value_type = T;
